@@ -51,8 +51,58 @@ namespace Ent_EFDesigner
         // Show
         private void button1_Click(object sender, EventArgs e)
         {
-            var dt = new DataTable();
-            dataGridView1.DataSource = new ex1Entities1().extable;
+            using(var db = new ex1Entities1())
+            {
+                var list = db.extable.ToList();
+
+                this.comboBox1.DisplayMember = "name";
+                this.comboBox1.ValueMember = "id";
+                this.comboBox1.DataSource = list;
+
+                //var list2 = ex1Entities1.Set<extable>().Select(item => new extable
+                //{
+                //    id = item.id,
+                //    name = item.name,
+                //    value = item.value,
+                //    time = item.time
+                //})
+                //    .ToList();
+
+                //IQueryable<extable> query = db.extable
+                //    .Select(x => new extable
+                //    {
+                //        id = x.id,
+                //        name = x.name,
+                //        value = x.value,
+                //        time = x.time
+                //    });
+
+                var query = from x in db.extable
+                            where x.id > 0
+                            select x;
+
+                foreach(var q in query)
+                {
+                    Console.WriteLine(q.id + ", " + q.name + ", " + q.value + ", " + q.time);
+                }
+                    
+            }
+            /*
+            using(var db = new ex1Entities1())
+            {
+                var list = db.extable
+                    .Where(item => item.id == 1)
+                    .Select(item => new extable
+                    {
+                        id = item.id,
+                        name = item.name,
+                        value = item.value,
+                        time = item.time
+                    })
+                    .ToList();
+                this.dataGridView1.DataSource = list;
+            }
+            */
         }
 
         // Add

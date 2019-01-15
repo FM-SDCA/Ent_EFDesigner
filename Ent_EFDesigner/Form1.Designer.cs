@@ -34,12 +34,13 @@
             this.name = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.value = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.date = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.button1 = new System.Windows.Forms.Button();
-            this.ex1DataSet = new Ent_EFDesigner.ex1DataSet();
             this.ex1DataSetBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.ex1DataSet = new Ent_EFDesigner.ex1DataSet();
+            this.button1 = new System.Windows.Forms.Button();
+            this.comboBox1 = new System.Windows.Forms.ComboBox();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.ex1DataSet)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ex1DataSetBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ex1DataSet)).BeginInit();
             this.SuspendLayout();
             // 
             // dataGridView1
@@ -78,6 +79,16 @@
             this.date.HeaderText = "date";
             this.date.Name = "date";
             // 
+            // ex1DataSetBindingSource
+            // 
+            this.ex1DataSetBindingSource.DataSource = this.ex1DataSet;
+            this.ex1DataSetBindingSource.Position = 0;
+            // 
+            // ex1DataSet
+            // 
+            this.ex1DataSet.DataSetName = "ex1DataSet";
+            this.ex1DataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
+            // 
             // button1
             // 
             this.button1.Location = new System.Drawing.Point(35, 42);
@@ -88,29 +99,28 @@
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
-            // ex1DataSet
+            // comboBox1
             // 
-            this.ex1DataSet.DataSetName = "ex1DataSet";
-            this.ex1DataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
-            // 
-            // ex1DataSetBindingSource
-            // 
-            this.ex1DataSetBindingSource.DataSource = this.ex1DataSet;
-            this.ex1DataSetBindingSource.Position = 0;
+            this.comboBox1.FormattingEnabled = true;
+            this.comboBox1.Location = new System.Drawing.Point(411, 13);
+            this.comboBox1.Name = "comboBox1";
+            this.comboBox1.Size = new System.Drawing.Size(121, 20);
+            this.comboBox1.TabIndex = 2;
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.comboBox1);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.dataGridView1);
             this.Name = "Form1";
             this.Text = "Form1";
             this.Load += new System.EventHandler(this.Form1_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.ex1DataSet)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.ex1DataSetBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ex1DataSet)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -125,6 +135,7 @@
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.BindingSource ex1DataSetBindingSource;
         private ex1DataSet ex1DataSet;
+        private System.Windows.Forms.ComboBox comboBox1;
     }
 }
 
