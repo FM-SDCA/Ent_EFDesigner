@@ -165,5 +165,15 @@
       <LastGenOutput>extable1.cs</LastGenOutput>
     </Content>
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Mewtocol_Lib\Http_Server_Client\Http_Server_Client.csproj">
+      <Project>{39bfdcaa-a85b-4981-90bb-e441bb8a7c4a}</Project>
+      <Name>Http_Server_Client</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Mewtocol_Lib\Mewtocol_Lib\Mewtocol_Lib.csproj">
+      <Project>{c5fd5f47-42e6-45d5-9525-b5de366d7d9c}</Project>
+      <Name>Mewtocol_Lib</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
