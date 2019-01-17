@@ -7,45 +7,36 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Diagnostics;
 
 namespace Ent_EFDesigner
 {
     public partial class Form1 : Form
     {
+        private Point mousePoint;
+
         public Form1()
         {
             InitializeComponent();
         }
-
+        
         private void Form1_Load(object sender, EventArgs e)
         {
 
-            using (var ent = new ex1Entities1())
-            {
-                int num = 0;
-                var nmodel = new extable()
-                {
-                id = new Func<int>(() =>
-                    {
-                        foreach (var en in ent.extable) num = en.id;
-                        return num + 1;
-                    })(),
-                    name = "num" + num + 1,
-                    value = 3152,
-                    time = DateTime.Now
-                };
+            // フォームの角を丸くする
+            int radius = 20;
+            int diameter = radius * 2;
+            System.Drawing.Drawing2D.GraphicsPath gp = new System.Drawing.Drawing2D.GraphicsPath();
 
-                ent.extable.Add(nmodel);
-                ent.SaveChanges();
+            gp.AddPie(0, 0, diameter, diameter, 180, 90);
+            gp.AddPie(this.Width - diameter, 0, diameter, diameter, 270, 90);
+            gp.AddPie(0, this.Height - diameter, diameter, diameter, 90, 90);
+            gp.AddPie(this.Width - diameter, this.Height - diameter, diameter, diameter, 0, 90);
+            gp.AddRectangle(new Rectangle(radius, 0, this.Width - diameter, this.Height));
+            gp.AddRectangle(new Rectangle(0, radius, radius, this.Height - diameter));
+            gp.AddRectangle(new Rectangle(this.Width - radius, radius, radius, this.Height - diameter));
 
-                foreach (var en in ent.extable)
-                {
-                    Console.WriteLine("id:" + en.id);
-                    Console.WriteLine("name:" + en.name);
-                    Console.WriteLine();
-                }
-            }
-
+            this.Region = new Region(gp);
         }
 
         // Show
@@ -76,16 +67,29 @@ namespace Ent_EFDesigner
                 //        value = x.value,
                 //        time = x.time
                 //    });
-
+                var t1 = int.Parse(textBox1.Text);
+                var t2 = int.Parse(textBox2.Text);
                 var query = from x in db.extable
-                            where x.id > 0
+                            where x.id >= t1
+                               && x.id <  t1 + t2
                             select x;
-
-                foreach(var q in query)
+                var dt = new DataTable();
+                dt.Columns.Add("id");
+                dt.Columns.Add("name");
+                dt.Columns.Add("value");
+                dt.Columns.Add("time");
+                foreach (var q in query)
                 {
                     Console.WriteLine(q.id + ", " + q.name + ", " + q.value + ", " + q.time);
+                    var row = dt.NewRow();
+                    row["id"] = q.id;
+                    row["name"] = q.name;
+                    row["value"] = q.value;
+                    row["time"] = q.time;
+                    dt.Rows.Add(row);
                 }
-                    
+                dataGridView1.DataSource = null;
+                dataGridView1.DataSource = dt;
             }
             /*
             using(var db = new ex1Entities1())
@@ -104,6 +108,57 @@ namespace Ent_EFDesigner
             }
             */
         }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+
+            using (var ent = new ex1Entities1())
+            {
+                int num = 0;
+                var nmodel = new extable()
+                {
+                    id = new Func<int>(() =>
+                    {
+                        foreach (var en in ent.extable) num = en.id;
+                        return num + 1;
+                    })(),
+                    name = "num" + num + 1,
+                    value = 3152,
+                    time = DateTime.Now
+                };
+
+                ent.extable.Add(nmodel);
+                ent.SaveChanges();
+
+                foreach (var en in ent.extable)
+                {
+                    Console.WriteLine("id:" + en.id);
+                    Console.WriteLine("name:" + en.name);
+                    Console.WriteLine();
+                }
+            }
+        }
+
+        private void Form1_MouseDown(object sender, MouseEventArgs e)
+        {
+
+            if ((e.Button & MouseButtons.Left) == MouseButtons.Left)
+            {
+                //位置を記憶する
+                mousePoint = new Point(e.X, e.Y);
+            }
+        }
+
+        private void Form1_MouseMove(object sender, MouseEventArgs e)
+        {
+
+            if ((e.Button & MouseButtons.Left) == MouseButtons.Left)
+            {
+                this.Left += e.X - mousePoint.X;
+                this.Top += e.Y - mousePoint.Y;
+            }
+        }
+
 
         // Add
     }
