@@ -30,8 +30,6 @@
         {
             this.components = new System.ComponentModel.Container();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
-            this.ex1DataSetBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.ex1DataSet = new Ent_EFDesigner.ex1DataSet();
             this.button1 = new System.Windows.Forms.Button();
             this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.button2 = new System.Windows.Forms.Button();
@@ -39,6 +37,13 @@
             this.textBox2 = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
+            this.ex1DataSetBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.ex1DataSet = new Ent_EFDesigner.ex1DataSet();
+            this.timer1 = new System.Windows.Forms.Timer(this.components);
+            this.textBox3 = new System.Windows.Forms.TextBox();
+            this.button3 = new System.Windows.Forms.Button();
+            this.button4 = new System.Windows.Forms.Button();
+            this.label3 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ex1DataSetBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ex1DataSet)).BeginInit();
@@ -52,16 +57,6 @@
             this.dataGridView1.RowTemplate.Height = 21;
             this.dataGridView1.Size = new System.Drawing.Size(653, 150);
             this.dataGridView1.TabIndex = 0;
-            // 
-            // ex1DataSetBindingSource
-            // 
-            this.ex1DataSetBindingSource.DataSource = this.ex1DataSet;
-            this.ex1DataSetBindingSource.Position = 0;
-            // 
-            // ex1DataSet
-            // 
-            this.ex1DataSet.DataSetName = "ex1DataSet";
-            this.ex1DataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
             // 
             // button1
             // 
@@ -125,14 +120,69 @@
             this.label2.TabIndex = 4;
             this.label2.Text = "点";
             // 
+            // ex1DataSetBindingSource
+            // 
+            this.ex1DataSetBindingSource.DataSource = this.ex1DataSet;
+            this.ex1DataSetBindingSource.Position = 0;
+            // 
+            // ex1DataSet
+            // 
+            this.ex1DataSet.DataSetName = "ex1DataSet";
+            this.ex1DataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
+            // 
+            // timer1
+            // 
+            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
+            // 
+            // textBox3
+            // 
+            this.textBox3.Location = new System.Drawing.Point(35, 283);
+            this.textBox3.Name = "textBox3";
+            this.textBox3.Size = new System.Drawing.Size(100, 19);
+            this.textBox3.TabIndex = 3;
+            this.textBox3.Text = "20";
+            // 
+            // button3
+            // 
+            this.button3.Location = new System.Drawing.Point(141, 283);
+            this.button3.Name = "button3";
+            this.button3.Size = new System.Drawing.Size(75, 23);
+            this.button3.TabIndex = 5;
+            this.button3.Text = "start";
+            this.button3.UseVisualStyleBackColor = true;
+            this.button3.Click += new System.EventHandler(this.button3_Click);
+            // 
+            // button4
+            // 
+            this.button4.Location = new System.Drawing.Point(222, 283);
+            this.button4.Name = "button4";
+            this.button4.Size = new System.Drawing.Size(75, 23);
+            this.button4.TabIndex = 5;
+            this.button4.Text = "stop";
+            this.button4.UseVisualStyleBackColor = true;
+            this.button4.Click += new System.EventHandler(this.button4_Click);
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(313, 288);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(35, 12);
+            this.label3.TabIndex = 6;
+            this.label3.Text = "label3";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.label3);
+            this.Controls.Add(this.button4);
+            this.Controls.Add(this.button3);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.textBox2);
+            this.Controls.Add(this.textBox3);
             this.Controls.Add(this.textBox1);
             this.Controls.Add(this.comboBox1);
             this.Controls.Add(this.button2);
@@ -164,6 +214,11 @@
         private System.Windows.Forms.TextBox textBox2;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Timer timer1;
+        private System.Windows.Forms.TextBox textBox3;
+        private System.Windows.Forms.Button button3;
+        private System.Windows.Forms.Button button4;
+        private System.Windows.Forms.Label label3;
     }
 }
 

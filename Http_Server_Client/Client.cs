@@ -14,7 +14,9 @@ namespace Http_Server_Client
 
         public Client(String serverIPAddStr, int port)
         {
+#if !DEBUG
             TCPClient(serverIPAddStr, port);
+#endif
         }
 
         public String TCPClient(String serverIPAddStr, int port)

@@ -1,8 +1,13 @@
-﻿using System;
+﻿#define DEBUG
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Diagnostics;
+
+
 
 // MewToColコマンド用ライブラリ
 namespace MewtocolLib
@@ -41,6 +46,7 @@ namespace MewtocolLib
         // FP7　numで指定したDTの値を読み取る。
         public int GetDT(int num)
         {
+#if !DEBUG
             int retry = 3;
             int ValuePosition = 2;
             int ValueCount = 5;
@@ -60,13 +66,16 @@ namespace MewtocolLib
                     return 0;
                 }
             }
-
+#else
+            Random random = new Random();
+            return random.Next(60000);
+#endif
         }
-        
 
         // FP7　numで指定したDTの値をsetValueで上書きする。
         public bool SetDT(int num, int setValue)
         {
+#if !DEBUG
             int ValuePosition = 2;
             int ValueCount = 5;
             int retry = 3;
@@ -84,6 +93,9 @@ namespace MewtocolLib
                     return false;
                 }
             }
+#else
+            return true;
+#endif
         }
     }
 

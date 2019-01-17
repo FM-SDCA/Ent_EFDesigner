@@ -14,6 +14,10 @@ namespace Ent_EFDesigner
     public partial class Form1 : Form
     {
         private Point mousePoint;
+        int[] dtNum = new int[] { 1000/*, 1002, 1004, 1006 */};
+        string ipadd = "192.168.11.1";
+        int port = 9023;
+        MewtocolLib.FP7 fp7;
 
         public Form1()
         {
@@ -37,12 +41,80 @@ namespace Ent_EFDesigner
             gp.AddRectangle(new Rectangle(this.Width - radius, radius, radius, this.Height - diameter));
 
             this.Region = new Region(gp);
+
+            fp7 = new MewtocolLib.FP7(dtNum, ipadd, port);
+
+            timer1.Interval = 10000;
+            timer1.Start();
         }
 
         // Show
         private void button1_Click(object sender, EventArgs e)
         {
-            using(var db = new ex1Entities1())
+            GetDataFromDataBase();
+        }
+
+        // Add
+        private void button2_Click(object sender, EventArgs e)
+        {
+            foreach(int a in dtNum)
+            {
+                AddDataToDatabase(DateTime.Today.ToString(), fp7.GetDT(a));
+            }
+        }
+
+        private void AddDataToDatabase(string name, int value)
+        {
+            using (var ent = new ex1Entities1())
+            {
+                int num = 0;
+                var nmodel = new extable()
+                {
+                    id = new Func<int>(() =>
+                    {
+                        foreach (var en in ent.extable) num = en.id;
+                        return num + 1;
+                    })(),
+                    name = "num" + num + 1,
+                    value = 3152,
+                    time = DateTime.Now
+                };
+
+                ent.extable.Add(nmodel);
+                ent.SaveChanges();
+
+                foreach (var en in ent.extable)
+                {
+                    Console.WriteLine("id:" + en.id);
+                    Console.WriteLine("name:" + en.name);
+                    Console.WriteLine();
+                }
+            }
+        }
+        
+        private void Form1_MouseDown(object sender, MouseEventArgs e)
+        {
+
+            if ((e.Button & MouseButtons.Left) == MouseButtons.Left)
+            {
+                //位置を記憶する
+                mousePoint = new Point(e.X, e.Y);
+            }
+        }
+
+        private void Form1_MouseMove(object sender, MouseEventArgs e)
+        {
+
+            if ((e.Button & MouseButtons.Left) == MouseButtons.Left)
+            {
+                this.Left += e.X - mousePoint.X;
+                this.Top += e.Y - mousePoint.Y;
+            }
+        }
+
+        private void GetDataFromDataBase()
+        {
+            using (var db = new ex1Entities1())
             {
                 var list = db.extable.ToList();
 
@@ -71,7 +143,7 @@ namespace Ent_EFDesigner
                 var t2 = int.Parse(textBox2.Text);
                 var query = from x in db.extable
                             where x.id >= t1
-                               && x.id <  t1 + t2
+                               && x.id < t1 + t2
                             select x;
                 var dt = new DataTable();
                 dt.Columns.Add("id");
@@ -109,56 +181,39 @@ namespace Ent_EFDesigner
             */
         }
 
-        private void button2_Click(object sender, EventArgs e)
+        // timer control
+
+        int time = 0;
+        int time_up = 0;
+        const int time_min = 10;
+
+        // start / reset
+        private void button3_Click(object sender, EventArgs e)
         {
+            if(!timer1.Enabled) timer1.Start();
+            time_up = int.Parse(textBox3.Text) < time_min ? time_min : int.Parse(textBox3.Text);
+            time = time_up;
+        }
 
-            using (var ent = new ex1Entities1())
+        // stop
+        private void button4_Click(object sender, EventArgs e)
+        {
+            if (timer1.Enabled) timer1.Stop();
+            else
             {
-                int num = 0;
-                var nmodel = new extable()
-                {
-                    id = new Func<int>(() =>
-                    {
-                        foreach (var en in ent.extable) num = en.id;
-                        return num + 1;
-                    })(),
-                    name = "num" + num + 1,
-                    value = 3152,
-                    time = DateTime.Now
-                };
-
-                ent.extable.Add(nmodel);
-                ent.SaveChanges();
-
-                foreach (var en in ent.extable)
-                {
-                    Console.WriteLine("id:" + en.id);
-                    Console.WriteLine("name:" + en.name);
-                    Console.WriteLine();
-                }
+                time_up = int.Parse(textBox3.Text) < time_min ? time_min : int.Parse(textBox3.Text);
+                time = time_up;
             }
         }
 
-        private void Form1_MouseDown(object sender, MouseEventArgs e)
+        private void timer1_Tick(object sender, EventArgs e)
         {
-
-            if ((e.Button & MouseButtons.Left) == MouseButtons.Left)
+            time--;
+            if(time <= 0)
             {
-                //位置を記憶する
-                mousePoint = new Point(e.X, e.Y);
+
             }
         }
-
-        private void Form1_MouseMove(object sender, MouseEventArgs e)
-        {
-
-            if ((e.Button & MouseButtons.Left) == MouseButtons.Left)
-            {
-                this.Left += e.X - mousePoint.X;
-                this.Top += e.Y - mousePoint.Y;
-            }
-        }
-
 
         // Add
     }
