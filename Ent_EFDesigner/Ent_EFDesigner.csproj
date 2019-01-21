@@ -72,11 +72,19 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="EF6_func.cs" />
     <Compile Include="ex1DataSet.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>ex1DataSet.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="ex1table.cs">
+      <DependentUpon>FP7DataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Ex2Form.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Ex2Form.Designer.cs">
+      <DependentUpon>Ex2Form.cs</DependentUpon>
     </Compile>
     <Compile Include="extable.Context.cs">
       <AutoGen>True</AutoGen>
@@ -96,16 +104,35 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>extable.tt</DependentUpon>
     </Compile>
-    <Compile Include="Form1.cs">
+    <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="MainForm.Designer.cs">
+      <DependentUpon>MainForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FP7DataModel.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>FP7DataModel.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="FP7DataModel.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>FP7DataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="FP7DataModel.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>FP7DataModel.edmx</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="Form1.resx">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="SampleModel1.cs" />
+    <EmbeddedResource Include="Ex2Form.resx">
+      <DependentUpon>Ex2Form.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MainForm.resx">
+      <DependentUpon>MainForm.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
@@ -135,6 +162,13 @@
     <None Include="extable.edmx.diagram">
       <DependentUpon>extable.edmx</DependentUpon>
     </None>
+    <EntityDeploy Include="FP7DataModel.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>FP7DataModel.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <None Include="FP7DataModel.edmx.diagram">
+      <DependentUpon>FP7DataModel.edmx</DependentUpon>
+    </None>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -162,6 +196,16 @@
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>extable.edmx</DependentUpon>
       <LastGenOutput>extable1.cs</LastGenOutput>
+    </Content>
+    <Content Include="FP7DataModel.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>FP7DataModel.edmx</DependentUpon>
+      <LastGenOutput>FP7DataModel.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="FP7DataModel.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>FP7DataModel.edmx</DependentUpon>
+      <LastGenOutput>FP7DataModel.cs</LastGenOutput>
     </Content>
   </ItemGroup>
   <ItemGroup>

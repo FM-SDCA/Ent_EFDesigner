@@ -34,7 +34,7 @@ namespace MewtocolLib
             {
 
                 rdt = new ReadDT[dtNums.Length];
-                foreach (int i in dtNums)
+                for(int i = 0; i < dtNums.Length; i++)
                 {
                     rdt[i].dtNum = dtNums[i];
                     rdt[i].value = 0;       // as default value
@@ -43,6 +43,9 @@ namespace MewtocolLib
             else errorMode |= err_dtNumTooSmall;
         }
 
+#if DEBUG
+        static Random random = new Random();
+#endif
         // FP7　numで指定したDTの値を読み取る。
         public int GetDT(int num)
         {
@@ -67,7 +70,6 @@ namespace MewtocolLib
                 }
             }
 #else
-            Random random = new Random();
             return random.Next(60000);
 #endif
         }

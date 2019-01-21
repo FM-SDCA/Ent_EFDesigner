@@ -11,15 +11,15 @@ using System.Diagnostics;
 
 namespace Ent_EFDesigner
 {
-    public partial class Form1 : Form
+    public partial class MainForm : Form
     {
         private Point mousePoint;
-        int[] dtNum = new int[] { 1000/*, 1002, 1004, 1006 */};
+        int[] dtNum = new int[] { 1000, 1002, 1004, 1006, 1008, 1010, 1012, 1014 };
         string ipadd = "192.168.11.1";
         int port = 9023;
         MewtocolLib.FP7 fp7;
 
-        public Form1()
+        public MainForm()
         {
             InitializeComponent();
         }
@@ -57,41 +57,91 @@ namespace Ent_EFDesigner
         // Add
         private void button2_Click(object sender, EventArgs e)
         {
-            foreach(int a in dtNum)
-            {
-                AddDataToDatabase(DateTime.Today.ToString(), fp7.GetDT(a));
+            int[] vals = new int[dtNum.Length];
+            for(int i = 0; i < dtNum.Length; i++)
+            { 
+                vals[i] = fp7.GetDT(dtNum[i]);
             }
+            AddDataToDatabase(vals);
         }
 
-        private void AddDataToDatabase(string name, int value)
+        private void AddDataToDatabase(int[] _value)
         {
-            using (var ent = new ex1Entities1())
+            using (var table = new fp7dataEntities())
             {
-                int num = 0;
-                var nmodel = new extable()
-                {
-                    id = new Func<int>(() =>
-                    {
-                        foreach (var en in ent.extable) num = en.id;
-                        return num + 1;
-                    })(),
-                    name = "num" + num + 1,
-                    value = 3152,
+                var nmodel = new ex1table()
+                { 
+                    //id = new Func<int>(() =>
+                    //{
+                    //    //foreach (var en in ent.ex1table) num = (int)en.id;
+                    //    //return num + 1;
+                    //})(),
+                    val1 = (short)_value[0],
+                    val2 = (short)_value[1],
+                    val3 = (short)_value[2],
+                    val4 = (short)_value[3],
+                    val5 = (short)_value[4],
+                    val6 = (short)_value[5],
+                    val7 = (short)_value[6],
+                    val8 = (short)_value[7],
                     time = DateTime.Now
                 };
 
-                ent.extable.Add(nmodel);
-                ent.SaveChanges();
+                table.ex1table.Add(nmodel);
+                table.SaveChanges();
 
-                foreach (var en in ent.extable)
+                foreach (var record in table.ex1table)
                 {
-                    Console.WriteLine("id:" + en.id);
-                    Console.WriteLine("name:" + en.name);
+                    Console.Write("id: {0}, vals: {1}, {2}, {3}, {4}, {5}, {6}, {7}, {8} time: {9}", 
+                        record.id, record.val1, record.val2, record.val3, record.val4, record.val5
+                        , record.val6, record.val7, record.val8, record.time);
                     Console.WriteLine();
                 }
             }
         }
-        
+
+        private void GetDataFromDataBase()
+        {
+            using (var db = new fp7dataEntities())
+            {
+                
+                var t1 = int.Parse(textBox1.Text);
+                var t2 = int.Parse(textBox2.Text);
+                var query = from x in db.ex1table
+                            where x.id >= t1
+                               && x.id < t1 + t2
+                            select x;
+                var dt = new DataTable();
+                dt.Columns.Add("id");
+                dt.Columns.Add("val1");
+                dt.Columns.Add("val2");
+                dt.Columns.Add("val3");
+                dt.Columns.Add("val4");
+                dt.Columns.Add("val5");
+                dt.Columns.Add("val6");
+                dt.Columns.Add("val7");
+                dt.Columns.Add("val8");
+                dt.Columns.Add("time");
+                foreach (var q in query)
+                {
+                    var row = dt.NewRow();
+                    row["id"] = q.id;
+                    row["val1"] = q.val1;
+                    row["val2"] = q.val2;
+                    row["val3"] = q.val3;
+                    row["val4"] = q.val4;
+                    row["val5"] = q.val5;
+                    row["val6"] = q.val6;
+                    row["val7"] = q.val7;
+                    row["val8"] = q.val8;
+                    row["time"] = q.time;
+                    dt.Rows.Add(row);
+                }
+                dataGridView1.DataSource = null;
+                dataGridView1.DataSource = dt;
+            }
+        }
+
         private void Form1_MouseDown(object sender, MouseEventArgs e)
         {
 
@@ -110,75 +160,6 @@ namespace Ent_EFDesigner
                 this.Left += e.X - mousePoint.X;
                 this.Top += e.Y - mousePoint.Y;
             }
-        }
-
-        private void GetDataFromDataBase()
-        {
-            using (var db = new ex1Entities1())
-            {
-                var list = db.extable.ToList();
-
-                this.comboBox1.DisplayMember = "name";
-                this.comboBox1.ValueMember = "id";
-                this.comboBox1.DataSource = list;
-
-                //var list2 = ex1Entities1.Set<extable>().Select(item => new extable
-                //{
-                //    id = item.id,
-                //    name = item.name,
-                //    value = item.value,
-                //    time = item.time
-                //})
-                //    .ToList();
-
-                //IQueryable<extable> query = db.extable
-                //    .Select(x => new extable
-                //    {
-                //        id = x.id,
-                //        name = x.name,
-                //        value = x.value,
-                //        time = x.time
-                //    });
-                var t1 = int.Parse(textBox1.Text);
-                var t2 = int.Parse(textBox2.Text);
-                var query = from x in db.extable
-                            where x.id >= t1
-                               && x.id < t1 + t2
-                            select x;
-                var dt = new DataTable();
-                dt.Columns.Add("id");
-                dt.Columns.Add("name");
-                dt.Columns.Add("value");
-                dt.Columns.Add("time");
-                foreach (var q in query)
-                {
-                    Console.WriteLine(q.id + ", " + q.name + ", " + q.value + ", " + q.time);
-                    var row = dt.NewRow();
-                    row["id"] = q.id;
-                    row["name"] = q.name;
-                    row["value"] = q.value;
-                    row["time"] = q.time;
-                    dt.Rows.Add(row);
-                }
-                dataGridView1.DataSource = null;
-                dataGridView1.DataSource = dt;
-            }
-            /*
-            using(var db = new ex1Entities1())
-            {
-                var list = db.extable
-                    .Where(item => item.id == 1)
-                    .Select(item => new extable
-                    {
-                        id = item.id,
-                        name = item.name,
-                        value = item.value,
-                        time = item.time
-                    })
-                    .ToList();
-                this.dataGridView1.DataSource = list;
-            }
-            */
         }
 
         // timer control
@@ -213,6 +194,20 @@ namespace Ent_EFDesigner
             {
 
             }
+        }
+
+        private void button5_Click(object sender, EventArgs e)
+        {
+            var ex2 = new Ex2Form();
+            ex2.Visible = true;
+            ex2.FormClosed += new FormClosedEventHandler(EX2Form_FormClosed);
+        }
+
+        private void EX2Form_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            Ex2Form ex2 = (Ex2Form)sender;
+
+            // 閉じた時の動作
         }
 
         // Add

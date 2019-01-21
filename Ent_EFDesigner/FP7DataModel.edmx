@@ -1,0 +1,94 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="fp7dataModel.Store" Provider="MySql.Data.MySqlClient" ProviderManifestToken="8.0" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="ex1table">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="uint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="val1" Type="smallint" Nullable="false" />
+          <Property Name="val2" Type="smallint" Nullable="false" />
+          <Property Name="val3" Type="smallint" Nullable="false" />
+          <Property Name="val4" Type="smallint" Nullable="false" />
+          <Property Name="val5" Type="smallint" Nullable="false" />
+          <Property Name="val6" Type="smallint" Nullable="false" />
+          <Property Name="val7" Type="smallint" Nullable="false" />
+          <Property Name="val8" Type="smallint" Nullable="false" />
+          <Property Name="time" Type="datetime" Precision="0" Nullable="false" />
+        </EntityType>
+        <EntityContainer Name="fp7dataModelStoreContainer">
+          <EntitySet Name="ex1table" EntityType="Self.ex1table" Schema="fp7data" store:Type="Tables" />
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="fp7dataModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="ex1table">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="val1" Type="Int16" Nullable="false" />
+          <Property Name="val2" Type="Int16" Nullable="false" />
+          <Property Name="val3" Type="Int16" Nullable="false" />
+          <Property Name="val4" Type="Int16" Nullable="false" />
+          <Property Name="val5" Type="Int16" Nullable="false" />
+          <Property Name="val6" Type="Int16" Nullable="false" />
+          <Property Name="val7" Type="Int16" Nullable="false" />
+          <Property Name="val8" Type="Int16" Nullable="false" />
+          <Property Name="time" Type="DateTime" Nullable="false" />
+        </EntityType>
+        <EntityContainer Name="fp7dataEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="ex1table" EntityType="Self.ex1table" />
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="fp7dataModelStoreContainer" CdmEntityContainer="fp7dataEntities">
+          <EntitySetMapping Name="ex1table">
+            <EntityTypeMapping TypeName="fp7dataModel.ex1table">
+              <MappingFragment StoreEntitySet="ex1table">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="val1" ColumnName="val1" />
+                <ScalarProperty Name="val2" ColumnName="val2" />
+                <ScalarProperty Name="val3" ColumnName="val3" />
+                <ScalarProperty Name="val4" ColumnName="val4" />
+                <ScalarProperty Name="val5" ColumnName="val5" />
+                <ScalarProperty Name="val6" ColumnName="val6" />
+                <ScalarProperty Name="val7" ColumnName="val7" />
+                <ScalarProperty Name="val8" ColumnName="val8" />
+                <ScalarProperty Name="time" ColumnName="time" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="なし" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
